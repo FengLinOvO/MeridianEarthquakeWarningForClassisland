@@ -1,7 +1,7 @@
 using NAudio.CoreAudioApi;
 using NAudio.Wave;
 
-namespace Voyage.EarthquakeWarning.Services;
+namespace Meridian.EarthquakeWarning.Services;
 
 public sealed record AudioCue(string FileName, double StartSeconds, double DelaySeconds = 0);
 
@@ -203,7 +203,7 @@ public sealed class AudioService
         }
     }
 
-    public void ForceMasterVolume100()
+    public void ForceMasterVolume(int level)
     {
         try
         {
@@ -212,7 +212,7 @@ public sealed class AudioService
 
             _originalMasterVolume ??= endpoint.AudioEndpointVolume.MasterVolumeLevelScalar;
 
-            endpoint.AudioEndpointVolume.MasterVolumeLevelScalar = 1.0f;
+            endpoint.AudioEndpointVolume.MasterVolumeLevelScalar = Math.Clamp(level, 0, 100) / 100f;
             _lastVolumeRestoreDeadline = DateTime.UtcNow.AddSeconds(10);
         }
         catch (Exception ex) { ErrorReporter.Report(ex, "AudioService.ForceMasterVolume", true); }
