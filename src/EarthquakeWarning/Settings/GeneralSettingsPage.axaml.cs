@@ -3,10 +3,10 @@ using Avalonia.Interactivity;
 using Avalonia.Threading;
 using ClassIsland.Core.Abstractions.Controls;
 using System.Globalization;
-using Voyage.EarthquakeWarning.Models;
-using Voyage.EarthquakeWarning.Services;
+using Meridian.EarthquakeWarning.Models;
+using Meridian.EarthquakeWarning.Services;
 
-namespace Voyage.EarthquakeWarning.Settings;
+namespace Meridian.EarthquakeWarning.Settings;
 
 public partial class GeneralSettingsPage : NotificationProviderControlBase
 {
@@ -39,7 +39,7 @@ public partial class GeneralSettingsPage : NotificationProviderControlBase
 
         SourceBox.ItemsSource = new[]
         {
-            "Voyage Project API",
+            "Meridian Nexu API",
             "MIUI API"
         };
 
@@ -52,7 +52,7 @@ public partial class GeneralSettingsPage : NotificationProviderControlBase
         SourceBox.SelectionChanged += (_, _) =>
         {
             Settings.ApiSource = (ApiSource)Math.Clamp(SourceBox.SelectedIndex, 0, 1);
-            TokenPanel.IsVisible = Settings.ApiSource == ApiSource.Voyage;
+            TokenPanel.IsVisible = Settings.ApiSource == ApiSource.Meridian;
             Store.Save();
             Eew?.Restart();
         };
@@ -93,7 +93,29 @@ public partial class GeneralSettingsPage : NotificationProviderControlBase
         OverrideBox.IsCheckedChanged += (_, _) => SaveAdvancedUi();
         SoundBox.IsCheckedChanged += (_, _) => SaveAdvancedUi();
         TopmostBox.IsCheckedChanged += (_, _) => SaveAdvancedUi();
-        ForceVolumeBox.IsCheckedChanged += (_, _) => SaveAdvancedUi();
+        ForceVolumeBox.IsCheckedChanged += (_, _) =>
+        {
+            SyncVolumeUi();
+            SaveAdvancedUi();
+        };
+        VolumeSlider.ValueChanged += (_, _) =>
+        {
+            SyncVolumeUi();
+            SaveAdvancedUi();
+        };
+        ThresholdBox.SelectionChanged += (_, _) => SaveUi();
+        ModeBox.SelectionChanged += (_, _) => SaveUi();
+        ReleaseBox.ValueChanged += (_, _) => SaveUi();
+        LatitudeBox.LostFocus += (_, _) => SaveUi();
+        LongitudeBox.LostFocus += (_, _) => SaveUi();
+    }
+
+    private void SyncVolumeUi()
+    {
+        var level = (int)Math.Round(VolumeSlider.Value);
+
+        VolumeValueText.Text = $"{level}%";
+        VolumePanel.IsVisible = ForceVolumeBox.IsChecked == true;
     }
 
     private void LoadUi()
@@ -104,12 +126,14 @@ public partial class GeneralSettingsPage : NotificationProviderControlBase
         ThresholdBox.SelectedIndex = Math.Clamp(Settings.TriggerThreshold, 0, 5);
         ModeBox.SelectedIndex = (int)Settings.WarningMode;
         SourceBox.SelectedIndex = (int)Settings.ApiSource;
-        TokenPanel.IsVisible = Settings.ApiSource == ApiSource.Voyage;
+        TokenPanel.IsVisible = Settings.ApiSource == ApiSource.Meridian;
         ReleaseBox.Value = Settings.ReleaseSeconds;
         OverrideBox.IsChecked = Settings.AdvancedOverride;
         SoundBox.IsChecked = Settings.EnableAlertSound;
         TopmostBox.IsChecked = Settings.TopMost;
         ForceVolumeBox.IsChecked = Settings.ForceVolume;
+        VolumeSlider.Value = Math.Clamp(Settings.ForceVolumeLevel, 0, 100);
+        SyncVolumeUi();
         ApiConnectionText.Text = Settings.ApiConnectionTimeText;
         ApiRecentText.Text = "API最近数据：" + Settings.ApiRecentDataText;
 
@@ -167,6 +191,7 @@ public partial class GeneralSettingsPage : NotificationProviderControlBase
         Settings.EnableAlertSound = SoundBox.IsChecked == true;
         Settings.TopMost = TopmostBox.IsChecked == true;
         Settings.ForceVolume = ForceVolumeBox.IsChecked == true;
+        Settings.ForceVolumeLevel = (int)Math.Round(VolumeSlider.Value);
         Store.Save();
     }
 
