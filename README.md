@@ -21,8 +21,6 @@
 
 申请地址：https://api.odysphere.tech/apply
 
-填写密码：FengLin_OvO
-
 ClassIsland 用户在申请时，请务必在使用用途栏填写“ClassIsland地震预警插件”，否则将视为普通用户，有概率不受理申请。
 
 ### 关于 Meridian Nexu API
@@ -69,4 +67,4 @@ API主页：https://api.odysphere.tech/
 
 ## 许可证
 
-本仓库采用 LGPL-3.0-only 许可证。
+本项目仓库采用LGPL-3.0-only许可证

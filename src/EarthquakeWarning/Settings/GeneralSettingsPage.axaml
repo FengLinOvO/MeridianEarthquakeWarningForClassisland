@@ -3,18 +3,6 @@
              x:Class="Meridian.EarthquakeWarning.Settings.GeneralSettingsPage">
   <ScrollViewer Padding="22,12,22,24">
     <StackPanel Spacing="16">
-      <Border Background="#1AFFFFFF"
-              CornerRadius="10"
-              Padding="14">
-        <StackPanel Spacing="6">
-          <TextBlock Text="免责声明"
-                     FontSize="18"
-                     FontWeight="Bold"/>
-          <TextBlock Text="· 地震预警信息由中国地震台网中心产出并下发，API由 Meridian Nexu API 与 MIUI API 提供；作者不对地震预警信息的准确性、有效性等作任何承诺与保证，对于使用本API造成的一切后果与作者无关。&#10;· 本插件仅分发地震预警信息，并非地震预测。&#10;· 作者对因信息延迟、误报或漏报所造成的任何损失不承担法律责任，请以官方发布信息为准。&#10;· 本插件以 LGPL-3.0-only 许可证开源。"
-                     TextWrapping="Wrap"/>
-        </StackPanel>
-      </Border>
-
       <StackPanel Spacing="8">
         <TextBlock Text="API状态"
                    FontSize="18"
@@ -60,7 +48,7 @@
           <StackPanel Spacing="8">
             <TextBox x:Name="TokenBox"
                      Watermark="填写由 https://api.odysphere.tech/apply 申请得到的 API Token"/>
-            <TextBlock Text="未填写 API Token 时插件不会连接预警服务，将无法收到预警。&#10;申请地址：https://api.odysphere.tech/apply（申请密码：FengLin_OvO）&#10;ClassIsland 用户在申请时，请务必在使用用途栏填写“ClassIsland地震预警插件”，否则将视为普通用户，有概率不受理申请。"
+            <TextBlock Text="未填写 API Token 时插件不会连接预警服务，将无法收到预警。&#10;申请地址：https://api.odysphere.tech/apply&#10;ClassIsland 用户在申请时，请务必在使用用途栏填写“ClassIsland地震预警插件”，否则将视为普通用户，有概率不受理申请。"
                        TextWrapping="Wrap"
                        FontSize="13"/>
           </StackPanel>
@@ -207,6 +195,26 @@
                     HorizontalAlignment="Left"/>
           </StackPanel>
         </Border>
+      </StackPanel>
+
+      <Border Height="1"
+              Background="#33FFFFFF"
+              Margin="0,8,0,0"/>
+
+      <StackPanel Spacing="6">
+        <TextBlock Text="免责声明"
+                   FontSize="18"
+                   FontWeight="Bold"/>
+        <TextBlock Text="地震预警信息由中国地震台网中心产出并下发，通过 Meridian Nexu API 或 MIUI API 接收；作者不对地震预警信息的准确性、有效性等作任何承诺与保证，对于使用任何API造成的一切后果与作者无关。&#10;本插件仅通过所接入API获取到的地震预警信息进行高可视化展示，非地震预测。&#10;作者对因信息延迟、误报或漏报所造成的任何损失不承担法律责任，请以官方发布信息为准。&#10;本项目开发采用Vibe Coding，发布前经过人工审查，欢迎提出建议。"
+                   TextWrapping="Wrap"/>
+      </StackPanel>
+
+      <StackPanel Spacing="6">
+        <TextBlock Text="许可证"
+                   FontSize="18"
+                   FontWeight="Bold"/>
+        <TextBlock Text="本项目仓库采用LGPL-3.0-only许可证"
+                   TextWrapping="Wrap"/>
       </StackPanel>
     </StackPanel>
   </ScrollViewer>
