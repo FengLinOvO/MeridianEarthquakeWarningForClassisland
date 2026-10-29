@@ -1,7 +1,7 @@
 using System.Text.Json;
-using Voyage.EarthquakeWarning.Models;
+using Meridian.EarthquakeWarning.Models;
 
-namespace Voyage.EarthquakeWarning.Settings;
+namespace Meridian.EarthquakeWarning.Settings;
 
 public sealed class PluginSettings : ObservableObject
 {
@@ -16,6 +16,7 @@ public sealed class PluginSettings : ObservableObject
     private bool _enableAlertSound = true;
     private bool _topMost = true;
     private bool _forceVolume;
+    private int _forceVolumeLevel = 100;
     private string _apiConnectionTimeText = "未连接";
     private string _apiRecentDataText = "暂无数据";
 
@@ -30,6 +31,7 @@ public sealed class PluginSettings : ObservableObject
     public bool EnableAlertSound { get => _enableAlertSound; set => SetProperty(ref _enableAlertSound, value); }
     public bool TopMost { get => _topMost; set => SetProperty(ref _topMost, value); }
     public bool ForceVolume { get => _forceVolume; set => SetProperty(ref _forceVolume, value); }
+    public int ForceVolumeLevel { get => _forceVolumeLevel; set => SetProperty(ref _forceVolumeLevel, Math.Clamp(value, 0, 100)); }
     public string ApiConnectionTimeText { get => _apiConnectionTimeText; set => SetProperty(ref _apiConnectionTimeText, value); }
     public string ApiRecentDataText { get => _apiRecentDataText; set => SetProperty(ref _apiRecentDataText, value); }
 
