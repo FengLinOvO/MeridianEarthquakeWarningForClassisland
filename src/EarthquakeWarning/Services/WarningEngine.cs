@@ -1,8 +1,8 @@
 using System.Globalization;
-using Voyage.EarthquakeWarning.Models;
-using Voyage.EarthquakeWarning.Settings;
+using Meridian.EarthquakeWarning.Models;
+using Meridian.EarthquakeWarning.Settings;
 
-namespace Voyage.EarthquakeWarning.Services;
+namespace Meridian.EarthquakeWarning.Services;
 
 public sealed class WarningEngine
 {
@@ -124,7 +124,7 @@ public sealed class WarningEngine
             if (allowReopen) _audioSuppressed = false;
         }
 
-        if (settings.ForceVolume && settings.AdvancedOverride) _audio.ForceMasterVolume100();
+        if (settings.ForceVolume && settings.AdvancedOverride) _audio.ForceMasterVolume(settings.ForceVolumeLevel);
 
         _settingsStore.Save();
 
