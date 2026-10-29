@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Voyage.EarthquakeWarning.Models;
+namespace Meridian.EarthquakeWarning.Models;
 
 public abstract class ObservableObject : INotifyPropertyChanged
 {

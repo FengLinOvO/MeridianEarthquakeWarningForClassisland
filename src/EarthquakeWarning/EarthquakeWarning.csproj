@@ -7,8 +7,8 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <CreateCipx>true</CreateCipx>
     <LangVersion>latest</LangVersion>
-    <AssemblyName>Voyage.EarthquakeWarning</AssemblyName>
-    <RootNamespace>Voyage.EarthquakeWarning</RootNamespace>
+    <AssemblyName>Meridian.EarthquakeWarning</AssemblyName>
+    <RootNamespace>Meridian.EarthquakeWarning</RootNamespace>
     <Platforms>AnyCPU</Platforms>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <DebugType>portable</DebugType>

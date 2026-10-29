@@ -1,0 +1,15 @@
+id: meridian.EarthquakeWarning
+name: 地震预警
+description: 一个现代化UI的地震预警插件，提供多种数据源选择
+entranceAssembly: "Meridian.EarthquakeWarning.dll"
+url: https://github.com/FengLinOvO/MeridianEarthquakeWarningForClassisland
+repoOwner: FengLinOvO
+repoName: MeridianEarthquakeWarningForClassisland
+assetsRoot: main/src/EarthquakeWarning
+artifactName: Meridian.EarthquakeWarning.cipx
+tagPattern: 1.*.*.*
+version: 1.3.3.0
+apiVersion: 2.1.0.1
+author: Meridian TEAM
+supportedOSPlatforms:
+  - Windows

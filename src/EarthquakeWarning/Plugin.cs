@@ -4,10 +4,10 @@ using ClassIsland.Core.Attributes;
 using ClassIsland.Core.Extensions.Registry;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Voyage.EarthquakeWarning.Services;
-using Voyage.EarthquakeWarning.Settings;
+using Meridian.EarthquakeWarning.Services;
+using Meridian.EarthquakeWarning.Settings;
 
-namespace Voyage.EarthquakeWarning;
+namespace Meridian.EarthquakeWarning;
 
 [PluginEntrance]
 public sealed class Plugin : PluginBase
@@ -26,7 +26,7 @@ public sealed class Plugin : PluginBase
     public override void Initialize(HostBuilderContext context, IServiceCollection services)
     {
         Current = this;
-        ConfigDirectory = Path.Combine(PluginConfigFolder, "Voyage.EarthquakeWarning");
+        ConfigDirectory = Path.Combine(PluginConfigFolder, "Meridian.EarthquakeWarning");
         Directory.CreateDirectory(ConfigDirectory);
         Settings = PluginSettings.Load(Path.Combine(ConfigDirectory, "settings.json"));
 

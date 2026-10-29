@@ -1,9 +1,9 @@
 using Avalonia.Controls;
 using Avalonia.Threading;
-using Voyage.EarthquakeWarning.Models;
-using Voyage.EarthquakeWarning.UI;
+using Meridian.EarthquakeWarning.Models;
+using Meridian.EarthquakeWarning.UI;
 
-namespace Voyage.EarthquakeWarning.Services;
+namespace Meridian.EarthquakeWarning.Services;
 
 public sealed class WarningWindowService
 {

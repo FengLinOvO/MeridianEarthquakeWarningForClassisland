@@ -1,10 +1,10 @@
-id: voyage.EarthquakeWarning
+id: meridian.EarthquakeWarning
 name: 地震预警
 apiVersion: 2.1.0.1
 description: 一个现代化UI的地震预警插件，提供多种数据源选择
-entranceAssembly: "Voyage.EarthquakeWarning.dll"
-author: Voyage Project
-url: https://github.com/FengLinOvO/VoyageEarthquakeWarningForClassisland
-version: 1.3.2.0
+entranceAssembly: "Meridian.EarthquakeWarning.dll"
+author: Meridian TEAM
+url: https://github.com/FengLinOvO/MeridianEarthquakeWarningForClassisland
+version: 1.3.3.0
 icon: icon.png
 readme: README.md

@@ -4,15 +4,15 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using Avalonia.Threading;
-using Voyage.EarthquakeWarning.UI;
+using Meridian.EarthquakeWarning.UI;
 
-namespace Voyage.EarthquakeWarning.Services;
+namespace Meridian.EarthquakeWarning.Services;
 
 public sealed record ErrorReport(DateTime OccurredAt, string Type, string Message, string Source, string Detail, string Location, bool Fatal, string LogFile);
 
 public static class ErrorReporter
 {
-    public const string IssuesUrl = "https://github.com/FengLinOvO/VoyageEarthquakeWarningForClassisland/issues";
+    public const string IssuesUrl = "https://github.com/FengLinOvO/MeridianEarthquakeWarningForClassisland/issues";
 
     private const int FallbackContextLines = 6;
     private const int MaxContextLines = 80;
@@ -145,13 +145,13 @@ public static class ErrorReporter
     private static string _lastSignature = "";
 
     public static string FatalText =>
-        "VoyageEarthquakeWarnning（地震预警）插件在运行中遇到致命错误！";
+        "Meridian（地震预警）插件在运行中遇到致命错误！";
 
     public static string FatalEmphasisText =>
         "该错误已导致程序进程崩溃";
 
     public static string NonFatalText =>
-        "VoyageEarthquakeWarnning（地震预警）插件在运行中遇到非致命错误！";
+        "Meridian（地震预警）插件在运行中遇到非致命错误！";
 
     public static string NonFatalEmphasisText =>
         "该错误已被安全策略忽略，将不影响程序其余部分运行";
@@ -332,7 +332,7 @@ public static class ErrorReporter
 
     private static string Format(ErrorReport report) => string.Join(Environment.NewLine,
     [
-        "VoyageEarthquakeWarning错误报告",
+        "MeridianEarthquakeWarning错误报告",
         $"报告时间：{DateTime.Now:yyyy-MM-dd HH:mm:ss}",
         $"发生时间：{report.OccurredAt:yyyy-MM-dd HH:mm:ss}",
         $"错误级别：{(report.Fatal ? "致命（崩溃）" : "非致命")}",

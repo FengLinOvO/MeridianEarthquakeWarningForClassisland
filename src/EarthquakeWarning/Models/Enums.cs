@@ -1,4 +1,4 @@
-namespace Voyage.EarthquakeWarning.Models;
+namespace Meridian.EarthquakeWarning.Models;
 
 public enum WarningMode
 {
@@ -8,7 +8,7 @@ public enum WarningMode
 
 public enum ApiSource
 {
-    Voyage = 0,
+    Meridian = 0,
     Miui = 1
 }
 

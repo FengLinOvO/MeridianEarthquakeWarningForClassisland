@@ -1,6 +1,6 @@
-using Voyage.EarthquakeWarning.Settings;
+using Meridian.EarthquakeWarning.Settings;
 
-namespace Voyage.EarthquakeWarning.Services;
+namespace Meridian.EarthquakeWarning.Services;
 
 public sealed class SettingsStore
 {

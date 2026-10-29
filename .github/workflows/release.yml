@@ -51,10 +51,10 @@ jobs:
           }
           $releaseDir = Join-Path $PWD 'release-assets'
           New-Item -ItemType Directory -Force $releaseDir | Out-Null
-          $package = Join-Path $releaseDir 'Voyage.EarthquakeWarning.cipx'
+          $package = Join-Path $releaseDir 'Meridian.EarthquakeWarning.cipx'
           Copy-Item $files[0].FullName $package -Force
           $md5 = (Get-FileHash $package -Algorithm MD5).Hash.ToLowerInvariant()
-          $body = '<!-- CLASSISLAND_PKG_MD5 {"Voyage.EarthquakeWarning.cipx": "' + $md5 + '"} -->'
+          $body = '<!-- CLASSISLAND_PKG_MD5 {"Meridian.EarthquakeWarning.cipx": "' + $md5 + '"} -->'
           Set-Content -Path (Join-Path $releaseDir 'checksums.md') -Value $body -Encoding UTF8
           Write-Host "MD5: $md5"
 
@@ -66,5 +66,5 @@ jobs:
           generate_release_notes: true
           body_path: release-assets/checksums.md
           files: |
-            release-assets/Voyage.EarthquakeWarning.cipx
+            release-assets/Meridian.EarthquakeWarning.cipx
             release-assets/checksums.md

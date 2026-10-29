@@ -6,9 +6,9 @@ using ClassIsland.Core.Abstractions.Services.NotificationProviders;
 using ClassIsland.Core.Attributes;
 using ClassIsland.Core.Models.Notification;
 using ClassIsland.Shared.Models.Notification;
-using Voyage.EarthquakeWarning.Models;
+using Meridian.EarthquakeWarning.Models;
 
-namespace Voyage.EarthquakeWarning.Services;
+namespace Meridian.EarthquakeWarning.Services;
 
 [NotificationProviderInfo("D39B2CB3-81A1-44E5-8CE8-7D8F6415E32A", "地震预警", "在收到预警信息时，根据用户设置弹出地震预警")]
 public sealed class EewNotificationProvider : NotificationProviderBase

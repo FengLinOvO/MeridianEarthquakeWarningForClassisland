@@ -1,4 +1,4 @@
-namespace Voyage.EarthquakeWarning.Models;
+namespace Meridian.EarthquakeWarning.Models;
 
 public sealed class WarningState : ObservableObject
 {

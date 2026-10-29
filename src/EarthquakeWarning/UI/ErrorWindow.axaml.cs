@@ -3,9 +3,9 @@ using Avalonia;
 using Avalonia.Controls.Documents;
 using Avalonia.Input;
 using Avalonia.Media;
-using Voyage.EarthquakeWarning.Services;
+using Meridian.EarthquakeWarning.Services;
 
-namespace Voyage.EarthquakeWarning.UI;
+namespace Meridian.EarthquakeWarning.UI;
 
 public partial class ErrorWindow : Avalonia.Controls.Window
 {

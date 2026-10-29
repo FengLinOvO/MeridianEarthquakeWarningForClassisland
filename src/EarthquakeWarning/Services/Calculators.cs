@@ -1,4 +1,4 @@
-namespace Voyage.EarthquakeWarning.Services;
+namespace Meridian.EarthquakeWarning.Services;
 
 public static class IntensityCalculator
 {

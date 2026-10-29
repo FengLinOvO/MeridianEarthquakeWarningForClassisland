@@ -3,9 +3,9 @@ using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Threading;
-using Voyage.EarthquakeWarning.Models;
+using Meridian.EarthquakeWarning.Models;
 
-namespace Voyage.EarthquakeWarning.UI;
+namespace Meridian.EarthquakeWarning.UI;
 
 public partial class EarthquakeWarningWindow : Window
 {
