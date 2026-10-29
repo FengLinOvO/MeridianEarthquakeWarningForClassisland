@@ -4,9 +4,9 @@ using System.Net.WebSockets;
 using System.Text;
 using System.Text.Json;
 using Microsoft.Extensions.Hosting;
-using Voyage.EarthquakeWarning.Models;
+using Meridian.EarthquakeWarning.Models;
 
-namespace Voyage.EarthquakeWarning.Services;
+namespace Meridian.EarthquakeWarning.Services;
 
 public sealed partial class EewService : BackgroundService
 {
@@ -19,6 +19,7 @@ public sealed partial class EewService : BackgroundService
     private static readonly string MiuiSign = Decode(MiuiSignEncoded);
     private static readonly TimeSpan MiuiTimeout = TimeSpan.FromSeconds(2);
     private static readonly TimeSpan MiuiPollInterval = TimeSpan.FromSeconds(2);
+    private static readonly TimeSpan RetryInterval = TimeSpan.FromSeconds(1);
     private static readonly HttpClient MiuiClient = new() { Timeout = MiuiTimeout };
 
     private readonly WarningEngine _engine;
@@ -53,7 +54,7 @@ public sealed partial class EewService : BackgroundService
             try
             {
                 if (CurrentSource == ApiSource.Miui) await IterateMiuiAsync(linked.Token);
-                else await IterateVoyageAsync(linked.Token);
+                else await IterateMeridianAsync(linked.Token);
             }
             catch (OperationCanceledException) when (stoppingToken.IsCancellationRequested) { break; }
             catch (OperationCanceledException) { }
@@ -62,28 +63,35 @@ public sealed partial class EewService : BackgroundService
 
     private static DateTime NowBeijing() => DateTime.UtcNow.AddHours(8);
 
-    private async Task IterateVoyageAsync(CancellationToken token)
+    private async Task IterateMeridianAsync(CancellationToken token)
     {
         var apiToken = Plugin.Current!.Settings.ApiToken?.Trim() ?? "";
 
         if (apiToken.Length == 0)
         {
-            SetStatus(ApiSource.Voyage, TokenMissingText);
+            SetStatus(ApiSource.Meridian, TokenMissingText);
             await Task.Delay(TimeSpan.FromSeconds(3), token);
             return;
         }
+
+        var connected = false;
+        var start = DateTime.UtcNow;
 
         try
         {
             using var ws = new ClientWebSocket();
             await ws.ConnectAsync(new Uri(ApiUrl), token);
             token.ThrowIfCancellationRequested();
-            SetStatus(ApiSource.Voyage, $"API连接于：{NowBeijing():yyyy-MM-dd HH:mm:ss}");
+            connected = true;
+            start = DateTime.UtcNow;
+            SetStatus(ApiSource.Meridian, $"API连接于：{NowBeijing():yyyy-MM-dd HH:mm:ss}");
             await ws.SendAsync(Encoding.UTF8.GetBytes(apiToken), WebSocketMessageType.Text, true, token);
             await ReceiveLoopAsync(ws, token);
         }
         catch (OperationCanceledException) { throw; }
-        catch (Exception ex) { SetStatus(ApiSource.Voyage, $"连接失败：{ex.Message}"); }
+        catch (Exception ex) { SetStatus(ApiSource.Meridian, $"连接失败：{ex.Message}"); }
+
+        if (!connected || DateTime.UtcNow - start < RetryInterval) await Task.Delay(RetryInterval, token);
     }
 
     private async Task ReceiveLoopAsync(ClientWebSocket ws, CancellationToken token)
@@ -101,7 +109,7 @@ public sealed partial class EewService : BackgroundService
                     ? $"连接已被服务端关闭（{result.CloseStatus}）"
                     : $"连接已被服务端关闭：{result.CloseStatusDescription}";
 
-                SetStatus(ApiSource.Voyage, reason);
+                SetStatus(ApiSource.Meridian, reason);
                 break;
             }
 
@@ -147,9 +155,14 @@ public sealed partial class EewService : BackgroundService
         catch (TaskCanceledException) when (!token.IsCancellationRequested)
         {
             SetStatus(ApiSource.Miui, "最近验证失败：请求超时");
+            await Task.Delay(RetryInterval, token);
         }
         catch (OperationCanceledException) { throw; }
-        catch (Exception ex) { SetStatus(ApiSource.Miui, $"最近验证失败：{ex.Message}"); }
+        catch (Exception ex)
+        {
+            SetStatus(ApiSource.Miui, $"最近验证失败：{ex.Message}");
+            await Task.Delay(RetryInterval, token);
+        }
     }
 
     private async Task RequestMiuiAsync(CancellationToken token)
